@@ -1,4 +1,4 @@
-22445351243784039
+22448792492429960
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -66381,6 +66381,13 @@ esp32 module
 31
 22
 PCM_Espressif
+MODULE_ESP32-C3_SUPERMINI
+
+
+0
+16
+16
+PCM_Espressif
 QFN-32-1EP_4x4mm_P0.4mm_EP2.9x2.9mm
 QFN, 32 Pin (http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8153-8-and-16-bit-avr-microcontroller-xmega-e-atxmega8e5-atxmega16e5-atxmega32e5_datasheet.pdf#page=70), generated with kicad-footprint-generator ipc_noLead_generator.py
 QFN NoLead
@@ -81283,6 +81290,13 @@ TO-264-5 Vertical RM 3.81mm
 0
 5
 5
+Potentiometer_SMD
+MODULE_ESP32-C3_SUPERMINI
+
+
+0
+16
+16
 Potentiometer_SMD
 Potentiometer_ACP_CA6-VSMD_Vertical
 Potentiometer, vertical, ACP CA6-VSMD, http://www.acptechnologies.com/wp-content/uploads/2017/06/01-ACP-CA6.pdf
