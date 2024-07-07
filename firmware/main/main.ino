@@ -1,6 +1,6 @@
 #define BOARDTYPE 2 // 1 for number, 2 for alphabet, 3 for shape puzzle
 
-bool debug = true;
+bool debug = true;//////////////DEBUG FOR DISABLE THE GAME, ONLY  CHECKING THE BASIC FUNCTION OF THE BOARD
 #include <Keypad.h>
 #include <Adafruit_NeoPixel.h>
 #include <MD_Parola.h>
