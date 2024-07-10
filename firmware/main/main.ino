@@ -3,18 +3,23 @@ bool REV = 1; // rev 0 for  the non inverted led matrix, rev 1 for the  inverted
 //pin 10 is used to alter the value, HIGH for 1
 bool debug = true;//////////////DEBUG FOR DISABLE THE GAME, ONLY  CHECKING THE BASIC FUNCTION OF THE BOARD
 //pin  12 is used to alter the value on boot, HIGH for true
+const byte ROWS = 4; //four rows
 
 
 
-#if BOARDTYPE != 2
 //if the board type is not huruf, that means the cols and rows would be the same, that means these settings didnt change(like the last version)
 //there's an additional Word variable that store the String that should be printed on the lcd, other than board 2, the value is different (nuber and shape)\
 //thus we made it different, and make the lcd print the correct character accordingly
-//but we still need the keys variable to check the generated word and the inputted word, int this case we made 1 and 3 the same, doesnt care about the symbol on the angka mode
+//but we still need the keys variable to check the generated Word and the inputted Word, int this case we made 1 and 3 the same, doesnt care about the symbol on the angka mode
 // and also the indonesianWords variable need to be different, and need to be placed in this line to save space
+
+
+
+#if BOARDTYPE == 1
+#include "numFont.h"
+const byte COLS = 4; //four columnsv
 byte colPins[COLS] = {6, 2, 1, 9}; //connect to the column pinouts of the kpd
 int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9 , 10, 11, 15, 14, 13, 12};
-const byte COLS = 4; //four columnsv
 const char* indonesianWords[] = {"ABDI","ABEN","ABID","ABOI","ABON","ACIK","ADEH","ADEM","ADIB","ADIK","ADIL","ADON","AFEK","AGEN","AGIH","AGIL","AGIO","AGON","AHLI","AJEK","AKEO","AKIL","AKLI","ALEM","ALIF","ALIH","ALIK","ALIM","ALIN","ALIP","ALOI","ALON","AMBI","AMEN","AMIL","AMIN","AMKO","AMOI","AMPE","AMPO","ANEH","ANIL","ANOM","APEK","APEL","APIK","APOK","BACO","BADE","BADI","BAGI","BAID","BAIK","BAIN","BAJI","BAKH","BAKI","BAKO","BANG","BANI","BANK","BEDA","BEDO","BEGA","BEGO","BEHA","BEKA","BELA","BELI","BELO","BEMO","BENA","BENI","BEOL","BIAH","BIAK","BIDA","BIDO","BIJA","BILA","BINA","BLEK","BLOG","BLOK","BODI","BOGA","BOGI","BOLA","BONG","CABE","CABO","CAEM","CAHI","CAKI","CAKO","CALO","CANG","CAPE","CEKI","CELA","CELI","CEMA","CENA","CENG","CEPO","CIAK","CIAP","CIKA","CINA","CING","COAK","COBA","COLI","DAGE","DAGI","DAHI","DAIF","DAIM","DAKI","DAME","DAMI","DANG","DEMI","DEMO","DENA","DEPA","DEPO","DIAM","DIAN","DILA","DINA","DOBI","DONG","DONI","EBAM","EBAN","EDAN","EGAH","EGOL","EJAN","EKAD","EKON","ELAK","ELAN","ELOK","ELON","EMOH","EMOL","EMPO","ENAK","ENAM","ENAP","ENOM","EPAK","EPIK","EPOK","FAIL","FANI","FEKO","FILM","FILO","FLOP","FOLI","GACO","GADO","GAEK","GAIB","GAIL","GAIN","GAJI","GALI","GANI","GAOK","GEDI","GELA","GELI","GELO","GEMA","GEMI","GENA","GIAL","GIAM","GILA","GOAK","GOBA","GODA","GOEL","GOLF","GONI","HAID","HAIK","HAIL","HAJI","HALO","HANG","HELA","HELM","HENG","HIFA","HINA","HOBI","HOKI","HOLI","IBAN","IDAH","IDAM","IDAP","IDEM","IDEP","IFAH","IGAL","IGLO","IJAB","IJON","IKAB","IKAL","IKAN","IKON","ILAH","ILAK","IMAK","IMAN","IMLA","INAP","INCA","INFO","INGA","IPON","JADI","JAGO","JAHE","JAIL","JALI","JANI","JEDA","JELA","JELI","JENG","JEPA","JIKA","JILA","JOKI","JOLI","KACI","KACO","KADE","KADI","KADO","KAFE","KAFI","KAIL","KAIN","KAJI","KALI","KALO","KAMI","KAMP","KANE","KANG","KANO","KAON","KAPI","KEBO","KECI","KEDI","KEJI","KELI","KELP","KEMI","KENA","KENG","KIAH","KIAL","KIAM","KIAN","KIAP","KILA","KILN","KILO","KIMA","KIMO","KINA","KIPA","KLAN","KLEM","KLEN","KLEP","KLIN","KLIP","KLON","KLOP","KNOP","KOCI","KODA","KODE","KODI","KOIL","KOIN","KOJA","KOLA","KOLI","KOMA","KOPI","LACI","LADI","LAGI","LAGO","LAIF","LAIK","LAIN","LAKI","LANG","LAPO","LEAK","LECI","LECO","LEFA","LEGA","LEGI","LEGO","LEJA","LEKA","LEMA","LEMO","LENA","LENG","LEPA","LIAN","LIFO","LIGA","LIMA","LING","LOAK","LOBA","LOBI","LOHA","LOJI","LOKA","LOKI","LONG","MACE","MADI","MADO","MAGI","MAIN","MAKI","MALE","MANG","MANI","MBAH","MBAK","MBOK","MEGA","MEJA","MEKO","MENA","MENI","MIAK","MIAP","MIKA","MINA","MIOP","MODE","MOGA","MOKA","MOKE","MOLA","MOLE","MONG","NABI","NADI","NAFI","NAHI","NAIB","NAIF","NAIK","NAIM","NALI","NEKA","NEKO","NICA","NILA","NODA","NOEM","NOJA","OCEH","OGAH","OGAM","OGEL","OJEG","OJEK","OLAH","OLAK","OLEH","OLEK","OLIA","OMEL","ONAK","ONCE","OPAK","OPAL","OPEN","PACE","PADI","PAGI","PAIL","PALE","PALI","PECI","PEDA","PEGO","PEKA","PELO","PENA","PENI","PEOK","PIAH","PIAK","PIAL","PICA","PICO","PIKA","PIKE","PION","PLAN","PLOI","POAL","POCI","POIN","POLA","POMA","PONI"
   };
 char keys[ROWS][COLS] = {
@@ -23,12 +28,7 @@ char keys[ROWS][COLS] = {
   {'I', 'J', 'K', 'L'},
   {'M', 'N', 'O', 'P'}
 };
-#endif
-
-
-#if BOARDTYPE == 1
-#include "numFont.h"
-String word[ROWS][COLS]= {
+String Word[ROWS][COLS]= {
   {'0', '1', '2', '3'},
   {'4', '5', '6', '7'},
   {'8', '9', 'x', '-'},
@@ -36,15 +36,15 @@ String word[ROWS][COLS]= {
 }
 
 #elif BOARDTYPE == 2
+const byte COLS = 7; //four columnsv
 #include "charFont.h"
 int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9 ,10, 11, 12, 16, 15, 14, 13, 17, 18, 19, 20, 24, 23, 22, 21, 25, 26};
 byte colPins[COLS] = {6, 2, 1, 9, 38 ,39, 40}; //connect to the column pinouts of the kpd
-const byte COLS = 7; //four columnsv
 const char* indonesianWords[] = {
-
-};// dont forget to add the different word for the different board type
-
-char keys[ROWS][COLS] = {
+"ABDI","ABDU","ABEN","ABET","ABID","ABIS","ABOI","ABON","ABUH","ABUK","ABUL","ABUR","ABUS","ACIK","ACUH","ACUM","ADEH","ADEM","ADIB","ADIK","ADIL","ADON","ADUH","ADUK","ADUN","AFEK","AGEN","AGIH","AGIL","AGIO","AGON","AGUK","AGUL","AGUN","AGUS","AGUT","AHLI","AJEK","AJIR","AJRE","AJUK","AJUN","AJUR","AKEO","AKIL","AKLI","AKOR","AKSI","AKUN","AKUR","AKUT","ALEM","ALIF","ALIH","ALIK","ALIM","ALIN","ALIP","ALIR","ALIS","ALIT","ALKU","ALOI","ALON","ALOT","ALTO","ALUM","ALUN","ALUP","ALUR","AMBI","AMEN","AMIL","AMIN","AMIR","AMIS","AMIT","AMKO","AMOI","AMOR","AMPE","AMPO","AMPU","AMUH","AMUK","ANEH","ANIL","ANIS","ANJU","ANOM","ANTE","ANTI","ANUS","ANUT","APEK","APEL","APES","APIK","APIT","APOK","APUH","ARDI","AREK","AREN","ARES","ARIF","ARIH","ARIK","ARIL","ARIP","ARIS","ARIT","ARKU","ARON","ARTI","ARUK","ARUN","ARUS","ASET","ASID","ASIH","ASIL","ASIN","ASLI","ASOI","ASOR","ASRI","ASUH","ATOK","ATOL","ATOM","ATOP","ATOS","ATUR","ATUS","AUNG","AUTO","AVEN","AWET","AWIN","AWUR","AWUT","AYEM","AYID","AYIT","AYOM","AYUK","AYUM","AYUN","AYUT","BADE","BADI","BAGI","BAHU","BAID","BAIK","BAIN","BAIS","BAIT","BAJI","BAJU","BAKH","BAKI","BAKO","BAKU","BALU","BANG","BANI","BANK","BARI","BARU","BASI","BATI","BATU","BAUD","BAUK","BAUN","BAUR","BAUT","BAYI","BAYU","BEDA","BEDO","BEGA","BEGU","BEKA","BEKU","BELA","BELI","BELO","BELU","BEMO","BENA","BENI","BEOL","BERA","BERI","BERU","BESI","BETA","BETI","BIAH","BIAK","BIAR","BIAS","BIAT","BIAU","BICU","BIDA","BIDO","BIJA","BIKU","BILA","BINA","BIRO","BIRU","BISA","BISU","BIUS","BIUT","BLEK","BLOG","BLOK","BLUS","BODI","BOGA","BOGI","BOIS","BOKS","BOKU","BOLA","BOLU","BONG","BORA","BOTA","BOYA","BREM","BREN","BROM","BROS","BRUK","BUAH","BUAI","BUAK","BUAL","BUAR","BUAS","BUAT","BUDE","BUDI","BUIH","BUIL","BUKA","BULE","BUMI","BUNA","BUNG","BUNI","BURA","BUSA","BUSI","BUTA","BUYA","CABE","CABO","CAEM","CAGU","CAHI","CAIR","CAIS","CAKI","CAKO","CALO","CANG","CAOS","CAPE","CARI","CATU","CAUL","CAWI","CEKI","CEKU","CELA","CELI","CEMA","CENA","CENG","CEPO","CEPU","CERI","CETI","CIAK","CIAP","CIAR","CIKA","CIKU","CING","CITA","CIUM","CIUT","COAK","COBA","CUAI","CUAK","CUAL","CUAR","CUAT","CUEK","CUIK","CUIL","CUIT","CUKA","CUKI","CULA","CULI","CUMA","CUNG","CURA","CURI","CUTI","DAGE","DAGI","DAGU","DAHI","DAIF","DAIM","DAKI","DAKU","DALU","DAME","DAMI","DANG","DARI","DARO","DASI","DATI","DATU","DAUK","DAUN","DAUR","DAYU","DEBU","DEKU","DELU","DEMI","DEMO","DENA","DEPA","DEPO","DERA","DERU","DESA","DEWA","DEWI","DIAM","DIAN","DIAR","DIAS","DIAT","DIES","DIET","DILA","DINA","DITO","DOBI","DOKU","DONG","DONI","DOSA","DRAF","DRAI","DRAM","DRAT","DREL","DRIF","DRIL","DRIP","DROP","DRUM","DUAI","DUEL","DUET","DUGA","DUHA","DUHE","DUIT","DUKA","DULA","DULI","DUMI","DUNG","DUPA","DURA","DURI","DUTA","DZAL","EBAM","EBAN","EBRO","EDAN","EDAR","EDIT","EGAH","EGAT","EGOL","EGOS","EJAN","EKAD","EKON","EKOR","ELAK","ELAN","ELOK","ELON","ELUS","EMAS","EMAT","EMIR","EMIS","EMOH","EMOL","EMPO","EMPU","EMUT","ENAK","ENAM","ENAP","ENAS","ENAU","ENOM","EPAK","EPIK","EPOK","EPOS","ERAK","ERAM","ERAT","ERIK","EROT","ERTI","ESAI","ESAK","ESOK","ESOT","ETIK","ETIL","ETIS","ETOS","ETSA","FAIL","FAKS","FANI","FASE","FEKO","FERI","FIAT","FILM","FILO","FIRN","FLAT","FLIS","FLOP","FOLI","FOYA","FRIB","FRON","FUAD","FULI","FUSI","GACO","GADO","GAEK","GAET","GAIB","GAIL","GAIN","GAIT","GAJI","GALI","GANI","GAOK","GARI","GARU","GAUK","GAUL","GAUN","GAUT","GEBU","GEDI","GELA","GELI","GELO","GEMA","GEMI","GENA","GERA","GERO","GERU","GESA","GETA","GETU","GIAL","GIAM","GIAT","GILA","GIPS","GIRO","GITA","GIUK","GIUR","GOAK","GOBA","GODA","GOEL","GOLF","GONI","GORI","GRAD","GRAF","GRAM","GRES","GRIA","GRIP","GROS","GRUP","GUAL","GUAM","GUAR","GUCI","GUDE","GUDI","GUIT","GULA","GULI","GUMA","GUNA","GURI","GUSI","HAID","HAIK","HAIL","HAJI","HALO","HANG","HARI","HART","HARU","HATI","HAUD","HAUL","HAUR","HAUS","HAYO","HELA","HELM","HENG","HERO","HIAS","HIDU","HIFA","HINA","HOBI","HOKI","HOLI","HORE","HUDA","HUJI","HUMA","HUNI","IBAN","IBNU","IBRA","IBUL","IBUN","IBUS","IDAH","IDAM","IDAP","IDAS","IDEM","IDEP","IFAH","IGAL","IGAU","IGLO","IJAB","IJAS","IJON","IJUK","IKAB","IKAL","IKAN","IKAT","IKON","IKUH","IKUT","ILAH","ILAK","ILAR","ILAS","ILAT","ILER","ILES","ILMU","IMAK","IMAN","IMLA","IMUN","INAP","INAS","INCA","INCU","INDU","INFO","INGA","IOTA","IPAR","IPON","IPUH","IPUK","IQRA","IRAM","IRAS","IRUS","ISAK","ISAP","ISRA","ISYA","ISYU","ITEM","IWAD","IZAH","JADI","JAGO","JAHE","JAIL","JAIS","JAIZ","JALI","JALU","JAMU","JANI","JAPU","JARI","JARO","JATI","JAUH","JAWI","JEDA","JELA","JELI","JELU","JEMU","JENG","JENU","JEPA","JERA","JERI","JERO","JIKA","JILA","JITU","JIWA","JOKI","JOLI","JORI","JOTA","JUAK","JUAL","JUAN","JUAR","JUDI","JUDO","JUEK","JUGA","JUHI","JUIH","JULI","JULO","JUNG","JUNI","JURA","JURI","JUTA","JUTE","KACI","KACO","KACU","KADE","KADI","KADO","KAFE","KAFI","KAIL","KAIN","KAIS","KAIT","KAJI","KALI","KALO","KAMI","KAMP","KAMU","KANE","KANG","KANO","KANS","KAON","KAOS","KAPI","KAPU","KARI","KARU","KASI","KATE","KATI","KAUL","KAUM","KAUS","KAUT","KAWI","KAYU","KEBO","KECI","KECU","KEDI","KEJI","KEJU","KELI","KELP","KELU","KEMI","KEMU","KENA","KENG","KERA","KERI","KERO","KERS","KESI","KETA","KETI","KETU","KHAS","KHAT","KIAH","KIAL","KIAM","KIAN","KIAP","KIAR","KIAS","KIAT","KICU","KILA","KILN","KILO","KIMA","KIMO","KINA","KIOS","KIPA","KIPU","KIRA","KIRU","KISA","KITA","KITS","KLAN","KLEM","KLEN","KLEP","KLIN","KLIP","KLIR","KLON","KLOP","KLOR","KLUB","KNOP","KNOT","KOAR","KOCI","KODA","KODE","KODI","KOIL","KOIN","KOIT","KOJA","KOLA","KOLI","KOLT","KOMA","KOPI","KOTA","KRAI","KRAM","KREM","KRIM","KRIO","KROL","KROM","KUAH","KUAI","KUAP","KUAR","KUAS","KUAT","KUDA","KUDI","KUIH","KUIL","KUIN","KUIR","KUIS","KUIT","KULI","KULT","KUNG","KUNO","KUPA","KUPE","KUPI","KURA","KURS","KUSA","KUTA","KUTI","KUYA","LABU","LACI","LADI","LADU","LAGI","LAGO","LAGU","LAIF","LAIK","LAIN","LAIS","LAJU","LAKI","LAKU","LANG","LAOS","LAPO","LARI","LARS","LARU","LASI","LASO","LAUH","LAUK","LAUN","LAUR","LAUT","LAWE","LAWI","LAYU","LEAK","LECI","LECO","LEFA","LEGA","LEGI","LEGO","LEGU","LEJA","LEKA","LEKU","LEMA","LEMO","LENA","LENG","LENS","LEOT","LEPA","LEPU","LESA","LESI","LESU","LETA","LEWA","LEWU","LIAN","LIAR","LIAS","LIAT","LIAU","LIFO","LIFT","LIGA","LIKU","LIMA","LING","LINU","LIPU","LIRA","LISU","LIUK","LIUR","LIUT","LIWA","LOAK","LOBA","LOBI","LOHA","LOJI","LOKA","LOKI","LONG","LORI","LOSE","LOTA","LOYA","LUAH","LUAK","LUAP","LUAR","LUAS","LUAT","LUES","LUIH","LUIK","LUKA","LUKS","LUNG","LUPA","LUPI","LUSA","LUTI","MACE","MADI","MADO","MADU","MAGI","MAIN","MAIR","MAJU","MAKI","MALE","MALT","MALU","MANG","MANI","MARE","MARI","MARK","MARO","MARS","MARU","MATE","MATI","MATU","MAUT","MAUZ","MAZI","MBAH","MBAK","MBOK","MEDU","MEGA","MEJA","MEKO","MENA","MENI","MENS","MENU","MERI","MERU","MESA","META","MIAK","MIAP","MIJU","MIKA","MILU","MINA","MIOP","MISA","MITE","MODE","MOGA","MOKA","MOKE","MOLA","MOLE","MONG","MORF","MORI","MOSI","MOTA","MUAI","MUAK","MUAL","MUAS","MUAT","MUDA","MUIH","MUKA","MULA","MUNG","MUNO","MUON","MURA","MURI","MUTE","NABI","NABU","NADI","NAFI","NAHI","NAHU","NAIB","NAIF","NAIK","NAIM","NALI","NASI","NAZI","NEKA","NEKO","NESA","NETO","NIAT","NICA","NILA","NIRA","NODA","NOEM","NOJA","NOTA","NOVA","NURI","NUSA","NYAI","NYAK","NYIT","NYUT","OASE","OBAR","OBAT","OCEH","OGAH","OGAM","OGEL","OJEG","OJEK","OKER","OLAH","OLAK","OLEH","OLEK","OLES","OLET","OLIA","OMEL","OMPU","ONAK","ONAR","ONCE","OPAK","OPAL","OPAS","OPEN","OPER","OPSI","OPUS","ORAK","ORAL","ORDE","ORDI","OREN","ORET","OTAK","OTAR","OTEK","OVAL","OVEN","OVER","OVUM","OYAK","OYEK","PACE","PACU","PADI","PADU","PAES","PAGI","PAGU","PAIL","PAIR","PAIS","PAKU","PALE","PALI","PALU","PARE","PARI","PARO","PARS","PARU","PASI","PASU","PATI","PAUH","PAUK","PAUL","PAUN","PAUS","PAUT","PAYU","PECI","PEDA","PEGO","PEKA","PEKU","PELO","PELS","PENA","PENI","PEOK","PEOT","PERA","PERI","PERS","PESA","PESI","PETA","PETI","PIAH","PIAK","PIAL","PIAS","PIAT","PICA","PICO","PICU","PIKA","PIKE","PILU","PION","PITA","PIUH","PIUT","PIZA","PLAN","PLOI","PLOT","PLUG","PLUS","POAL","POCI","POIN","POLA","POMA","PONI","PONS","PORA","PORI","POSE","PRAH","PREI","PRES","PRIA","PRIS","PRIT","PROF","PUAH","PUAK","PUAL","PUAN","PUAS","PUDI","PUIH","PUJA","PUJI","PUKI","PULA","PUMA","PUNG","PUNK","PURA","PURE","PURI","PUSA","PUSO","PUTI","QARI","RABI","RABU","RADI","RADU","RAFE","RAFI","RAGI","RAGU","RAHU","RAIB","RAIH","RAIS","RAMI","RAMU","RANG","RANI","RAPI","RAPU","RASE","RASI","RATU","RAUM","RAUN","RAUP","RAUT","RAWI","RAYU","REAK","REAL","REBA","REBU","RECA","REDA","REGI","REGU","REJA","REKA","RELA","RELI","REMA","REMI","RENA","RENG","REOG","REOL","REOT","RESA","RESI","RESU","RETA","RIAH","RIAK","RIAL","RIAM","RIAN","RIAP","RIAS","RIBA","RIBU","RICA","RIDA","RIDU","RIMA","RIME","RING","RIOL","RISA","RIUH","RIUK","RODA","RODI","ROGA","ROKI","ROMA","RONA","RONG","ROTI","ROWA","RUAH","RUAI","RUAK","RUAM","RUAP","RUAS","RUAT","RUDI","RUGI","RUIT","RUJI","RUKO","RUMI","RUOK","RUPA","RUSA","RUTE","SABI","SABO","SADO","SADU","SAFI","SAGU","SAHI","SAIF","SAIR","SAJI","SAKE","SAKI","SAKU","SALE","SALI","SAMI","SANG","SANI","SANO","SAPI","SAPU","SARI","SARU","SATE","SATO","SATU","SAUH","SAUK","SAUM","SAUR","SAUT","SAWI","SAWO","SAYU","SEBA","SEBU","SEDU","SEGA","SEGI","SEIA","SEIN","SEKA","SEKH","SEKO","SELA","SELO","SEMA","SEMI","SEMU","SENA","SENG","SENI","SENU","SEOK","SEPI","SERA","SERI","SERO","SERU","SETA","SETI","SETU","SEWA","SEWU","SIAH","SIAK","SIAL","SIAM","SIAN","SIAP","SIAR","SIAT","SIAU","SICE","SIDA","SIKA","SIKU","SILA","SILO","SILT","SILU","SING","SINU","SIPU","SIRA","SIRU","SITA","SITU","SIUH","SIUK","SIUL","SIUR","SIUT","SKIP","SKOP","SKOR","SLAH","SLIP","SLOF","SNOB","SOAK","SOAL","SOBA","SODA","SOFA","SOGA","SOJA","SOKA","SOMA","SOPI","SORE","SORI","SOUN","SPAN","SPIL","SREG","STAF","STAN","STEK","STEN","STEP","STIK","STOK","STOL","STOP","SUAH","SUAI","SUAK","SUAM","SUAP","SUAR","SUAT","SUCI","SUDA","SUDI","SUFI","SUGI","SUIT","SUJI","SUKA","SUKE","SUKI","SULA","SULI","SUMO","SUNI","SUPA","SURA","SURI","SWAK","SYAH","SYAK","SYAL","SYAM","SYAR","SYIN","SYOK","SYUR","TABE","TABO","TABU","TACI","TADI","TAGO","TAHI","TAHU","TAIB","TAIS","TAJI","TAJU","TAKI","TALI","TALK","TALU","TAMU","TANG","TANI","TANK","TAPI","TARI","TAUL","TAUN","TAUR","TEAN","TEBU","TEGA","TEJA","TEJI","TEKA","TEKI","TEKO","TEKS","TELA","TEMA","TEMU","TENG","TEPA","TEPI","TEPO","TEPU","TERA","TERI","TERM","TEZI","TIAM","TIAN","TIAP","TIBA","TIFA","TIGA","TIKA","TIKE","TING","TIPE","TIPU","TIRU","TISU","TIUP","TOAS","TOGA","TOGE","TOKE","TONA","TONG","TOPI","TOYA","TRAP","TRAS","TREK","TREM","TREN","TRES","TRIK","TRIL","TRIM","TRIO","TRIP","TROI","TROS","TRUF","TRUK","TSAR","TUAH","TUAI","TUAK","TUAL","TUAM","TUAN","TUAP","TUAR","TUAS","TUBA","TUBE","TUBI","TUFA","TUGI","TUIL","TUJI","TULA","TULE","TUMA","TUNA","TUNG","TURA","TURI","UANG","UBAH","UBAN","UBAR","UBAT","UBEK","UBEL","UBER","UBET","UBIN","UBIT","UCAP","UCEK","UCIS","UDAK","UDAM","UDAP","UDAR","UDEK","UDET","UDIK","UDIM","UFTI","UGEM","UGER","UJAR","UKAS","UKIR","ULAH","ULAK","ULAM","ULAN","ULAR","ULAS","ULAT","ULEK","ULEM","ULEN","ULES","ULET","ULIK","ULIN","ULIR","ULIT","ULNA","ULOS","UMAK","UMAN","UMAT","UMBI","UMBO","UNAM","UNDA","UNDI","UNIK","UNIT","UNTA","UNTI","UPAH","UPAK","UPAM","UPAN","UPAR","UPAS","UPET","UPIH","UPIK","UPIL","URAH","URAI","URAK","URAP","URAS","URAT","UREA","URIK","URIP","URIS","URIT","URNA","USAH","USAI","USAK","USAM","USAP","USAR","USAT","USIA","USIK","USIL","USIR","UTAS","UTIH","UTIK","UWAR","VENA","VETO","VIDE","VILA","VIOL","VISA","VLEK","VOAL","VOLI","VOLT","VRAH","WADI","WAGE","WAGU","WAID","WALI","WALS","WANG","WANI","WARI","WARU","WASI","WATU","WEDA","WESI","WIKU","WING","WIRA","WIRU","WISA","WONG","WOSI","YAIS","YANG","YARD","YAUM""YOGA","YOGI","YOLK","YUDA","YUDO","YUPA","YURA","YUTE","ZAIM","ZAIR","ZEBU","ZENI","ZERO","ZETA","ZINA","ZINK","ZION","ZONA","ZONE"
+};// dont forget to add the different Word for the different board type
+String Word[ROWS][COLS] = {};
+char keys[COLS][ROWS] = {
   {'A', 'B', 'C', 'D'},
   {'E', 'F', 'G', 'H'},
   {'I', 'J', 'K', 'L'},
@@ -56,7 +56,18 @@ char keys[ROWS][COLS] = {
 
 #elif BOARDTYPE == 3
 #include "shapeFont.h"
-String word[ROWS][COLS] = {
+const byte COLS = 4; //four columnsv
+byte colPins[COLS] = {6, 2, 1, 9}; //connect to the column pinouts of the kpd
+int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9 , 10, 11, 15, 14, 13, 12};
+const char* indonesianWords[] = {"ABDI","ABEN","ABID","ABOI","ABON","ACIK","ADEH","ADEM","ADIB","ADIK","ADIL","ADON","AFEK","AGEN","AGIH","AGIL","AGIO","AGON","AHLI","AJEK","AKEO","AKIL","AKLI","ALEM","ALIF","ALIH","ALIK","ALIM","ALIN","ALIP","ALOI","ALON","AMBI","AMEN","AMIL","AMIN","AMKO","AMOI","AMPE","AMPO","ANEH","ANIL","ANOM","APEK","APEL","APIK","APOK","BACO","BADE","BADI","BAGI","BAID","BAIK","BAIN","BAJI","BAKH","BAKI","BAKO","BANG","BANI","BANK","BEDA","BEDO","BEGA","BEGO","BEHA","BEKA","BELA","BELI","BELO","BEMO","BENA","BENI","BEOL","BIAH","BIAK","BIDA","BIDO","BIJA","BILA","BINA","BLEK","BLOG","BLOK","BODI","BOGA","BOGI","BOLA","BONG","CABE","CABO","CAEM","CAHI","CAKI","CAKO","CALO","CANG","CAPE","CEKI","CELA","CELI","CEMA","CENA","CENG","CEPO","CIAK","CIAP","CIKA","CINA","CING","COAK","COBA","COLI","DAGE","DAGI","DAHI","DAIF","DAIM","DAKI","DAME","DAMI","DANG","DEMI","DEMO","DENA","DEPA","DEPO","DIAM","DIAN","DILA","DINA","DOBI","DONG","DONI","EBAM","EBAN","EDAN","EGAH","EGOL","EJAN","EKAD","EKON","ELAK","ELAN","ELOK","ELON","EMOH","EMOL","EMPO","ENAK","ENAM","ENAP","ENOM","EPAK","EPIK","EPOK","FAIL","FANI","FEKO","FILM","FILO","FLOP","FOLI","GACO","GADO","GAEK","GAIB","GAIL","GAIN","GAJI","GALI","GANI","GAOK","GEDI","GELA","GELI","GELO","GEMA","GEMI","GENA","GIAL","GIAM","GILA","GOAK","GOBA","GODA","GOEL","GOLF","GONI","HAID","HAIK","HAIL","HAJI","HALO","HANG","HELA","HELM","HENG","HIFA","HINA","HOBI","HOKI","HOLI","IBAN","IDAH","IDAM","IDAP","IDEM","IDEP","IFAH","IGAL","IGLO","IJAB","IJON","IKAB","IKAL","IKAN","IKON","ILAH","ILAK","IMAK","IMAN","IMLA","INAP","INCA","INFO","INGA","IPON","JADI","JAGO","JAHE","JAIL","JALI","JANI","JEDA","JELA","JELI","JENG","JEPA","JIKA","JILA","JOKI","JOLI","KACI","KACO","KADE","KADI","KADO","KAFE","KAFI","KAIL","KAIN","KAJI","KALI","KALO","KAMI","KAMP","KANE","KANG","KANO","KAON","KAPI","KEBO","KECI","KEDI","KEJI","KELI","KELP","KEMI","KENA","KENG","KIAH","KIAL","KIAM","KIAN","KIAP","KILA","KILN","KILO","KIMA","KIMO","KINA","KIPA","KLAN","KLEM","KLEN","KLEP","KLIN","KLIP","KLON","KLOP","KNOP","KOCI","KODA","KODE","KODI","KOIL","KOIN","KOJA","KOLA","KOLI","KOMA","KOPI","LACI","LADI","LAGI","LAGO","LAIF","LAIK","LAIN","LAKI","LANG","LAPO","LEAK","LECI","LECO","LEFA","LEGA","LEGI","LEGO","LEJA","LEKA","LEMA","LEMO","LENA","LENG","LEPA","LIAN","LIFO","LIGA","LIMA","LING","LOAK","LOBA","LOBI","LOHA","LOJI","LOKA","LOKI","LONG","MACE","MADI","MADO","MAGI","MAIN","MAKI","MALE","MANG","MANI","MBAH","MBAK","MBOK","MEGA","MEJA","MEKO","MENA","MENI","MIAK","MIAP","MIKA","MINA","MIOP","MODE","MOGA","MOKA","MOKE","MOLA","MOLE","MONG","NABI","NADI","NAFI","NAHI","NAIB","NAIF","NAIK","NAIM","NALI","NEKA","NEKO","NICA","NILA","NODA","NOEM","NOJA","OCEH","OGAH","OGAM","OGEL","OJEG","OJEK","OLAH","OLAK","OLEH","OLEK","OLIA","OMEL","ONAK","ONCE","OPAK","OPAL","OPEN","PACE","PADI","PAGI","PAIL","PALE","PALI","PECI","PEDA","PEGO","PEKA","PELO","PENA","PENI","PEOK","PIAH","PIAK","PIAL","PICA","PICO","PIKA","PIKE","PION","PLAN","PLOI","POAL","POCI","POIN","POLA","POMA","PONI"
+  };
+char keys[ROWS][COLS] = {
+  {'A', 'B', 'C', 'D'},
+  {'E', 'F', 'G', 'H'},
+  {'I', 'J', 'K', 'L'},
+  {'M', 'N', 'O', 'P'}
+};
+String Word[ROWS][COLS] = {
   {"PERSEGI", "PERSEGI PANJANG", "LINGKARAN", "TRAPESIUM"},
   {"SEGITIGA", "SEGI ENAM", "SEGITIGA SAMA KAKI", "SEGI LIMA"},
   {"JAJAR GENJANG", "LAYANG LAYANG", "1/2 LINGKARAN", "3/4 LINGKARAN"},
@@ -91,7 +102,6 @@ String word[ROWS][COLS] = {
 
 
 byte rowPins[ROWS] = {11, 7, 5, 3}; //connect to the row pinouts of the kpd
-const byte ROWS = 4; //four rows
 MD_Parola P = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
@@ -103,7 +113,6 @@ unsigned long lastMillis, currentMillis;
 char randomAlphabet, pressedKey;
 int mode, score;
 char t[100];
-int index;
 
 Adafruit_NeoPixel pixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -154,7 +163,7 @@ void flashLED(int r, int g, int b){
         }
 }
 
-char getCharToDisplay(int index) {
+String inputToDisplay(int index) {
     int row = index / COLS;
     int col = index % COLS;
 
@@ -162,11 +171,11 @@ char getCharToDisplay(int index) {
         // For BOARDTYPE 2, use the keys array
         return keys[row][col];
     } else if (BOARDTYPE == 1 || BOARDTYPE == 3) {
-        // For BOARDTYPE 1 or 3, use the word array
-        return word[row][col][0]; // Assuming word stores strings and we want the first character
+        // For BOARDTYPE 1 or 3, use the Word array
+        return Word[row][col]; // Assuming Word stores strings and we want the first character
     }
 
-    return ' '; // Default return value in case of an unexpected BOARDTYPE
+    return " "; // Default return value in case of an unexpected BOARDTYPE
 }
 
 void upScreenLED(char input, char target, bool isCorrect){
@@ -175,9 +184,12 @@ void upScreenLED(char input, char target, bool isCorrect){
   Serial.printf("%s your input is %c\n",text, input);
 
   
-  sprintf(t, "%c %c", inputToDisplay(getKeyIndex(input)), sign);
   #if BOARDTYPE == 2
   P.setTextEffect(PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+  sprintf(t,  "%c %c", input,  sign);
+  #elif BOARDTYPE == 3
+  sprintf(t, "%s %c", Word[getKeyIndex(input)], sign);
+
   #elif BOARDTYPE != 2
   P.setTextEffect(NO_EFFECT, NO_EFFECT);
   #endif
@@ -197,7 +209,7 @@ void simonSaysGame(char input) {
   if (!gameStarted) {
     // Initialize the game
     Serial.println("Simon Says: Watch the sequence and repeat it.");
-    P.displayText("Amati,Tirukan", PA_CENTER, 25, 2000, PA_SCROLL_LEFT, PA_SCROLL_LEFT)
+    P.displayText("Amati,Tirukan", PA_CENTER, 25, 2000, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
     delay(SHORTDELAY);
     P.print("");
 
