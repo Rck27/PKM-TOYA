@@ -63,7 +63,7 @@ const char keys[COLS][ROWS] = {
 #elif BOARDTYPE == 3
 const char* indonesianWords[] = {"ABDI","ABEN","ABID","ABOI","ABON","ACIK","ADEH","ADEM","ADIB","ADIK","ADIL","ADON","AFEK","AGEN","AGIH","AGIL","AGIO","AGON","AHLI","AJEK","AKEO","AKIL","AKLI","ALEM","ALIF","ALIH","ALIK","ALIM","ALIN","ALIP","ALOI","ALON","AMBI","AMEN","AMIL","AMIN","AMKO","AMOI","AMPE","AMPO","ANEH","ANIL","ANOM","APEK","APEL","APIK","APOK","BACO","BADE","BADI","BAGI","BAID","BAIK","BAIN","BAJI","BAKH","BAKI","BAKO","BANG","BANI","BANK","BEDA","BEDO","BEGA","BEGO","BEHA","BEKA","BELA","BELI","BELO","BEMO","BENA","BENI","BEOL","BIAH","BIAK","BIDA","BIDO","BIJA","BILA","BINA","BLEK","BLOG","BLOK","BODI","BOGA","BOGI","BOLA","BONG","CABE","CABO","CAEM","CAHI","CAKI","CAKO","CALO","CANG","CAPE","CEKI","CELA","CELI","CEMA","CENA","CENG","CEPO","CIAK","CIAP","CIKA","CINA","CING","COAK","COBA","COLI","DAGE","DAGI","DAHI","DAIF","DAIM","DAKI","DAME","DAMI","DANG","DEMI","DEMO","DENA","DEPA","DEPO","DIAM","DIAN","DILA","DINA","DOBI","DONG","DONI","EBAM","EBAN","EDAN","EGAH","EGOL","EJAN","EKAD","EKON","ELAK","ELAN","ELOK","ELON","EMOH","EMOL","EMPO","ENAK","ENAM","ENAP","ENOM","EPAK","EPIK","EPOK","FAIL","FANI","FEKO","FILM","FILO","FLOP","FOLI","GACO","GADO","GAEK","GAIB","GAIL","GAIN","GAJI","GALI","GANI","GAOK","GEDI","GELA","GELI","GELO","GEMA","GEMI","GENA","GIAL","GIAM","GILA","GOAK","GOBA","GODA","GOEL","GOLF","GONI","HAID","HAIK","HAIL","HAJI","HALO","HANG","HELA","HELM","HENG","HIFA","HINA","HOBI","HOKI","HOLI","IBAN","IDAH","IDAM","IDAP","IDEM","IDEP","IFAH","IGAL","IGLO","IJAB","IJON","IKAB","IKAL","IKAN","IKON","ILAH","ILAK","IMAK","IMAN","IMLA","INAP","INCA","INFO","INGA","IPON","JADI","JAGO","JAHE","JAIL","JALI","JANI","JEDA","JELA","JELI","JENG","JEPA","JIKA","JILA","JOKI","JOLI","KACI","KACO","KADE","KADI","KADO","KAFE","KAFI","KAIL","KAIN","KAJI","KALI","KALO","KAMI","KAMP","KANE","KANG","KANO","KAON","KAPI","KEBO","KECI","KEDI","KEJI","KELI","KELP","KEMI","KENA","KENG","KIAH","KIAL","KIAM","KIAN","KIAP","KILA","KILN","KILO","KIMA","KIMO","KINA","KIPA","KLAN","KLEM","KLEN","KLEP","KLIN","KLIP","KLON","KLOP","KNOP","KOCI","KODA","KODE","KODI","KOIL","KOIN","KOJA","KOLA","KOLI","KOMA","KOPI","LACI","LADI","LAGI","LAGO","LAIF","LAIK","LAIN","LAKI","LANG","LAPO","LEAK","LECI","LECO","LEFA","LEGA","LEGI","LEGO","LEJA","LEKA","LEMA","LEMO","LENA","LENG","LEPA","LIAN","LIFO","LIGA","LIMA","LING","LOAK","LOBA","LOBI","LOHA","LOJI","LOKA","LOKI","LONG","MACE","MADI","MADO","MAGI","MAIN","MAKI","MALE","MANG","MANI","MBAH","MBAK","MBOK","MEGA","MEJA","MEKO","MENA","MENI","MIAK","MIAP","MIKA","MINA","MIOP","MODE","MOGA","MOKA","MOKE","MOLA","MOLE","MONG","NABI","NADI","NAFI","NAHI","NAIB","NAIF","NAIK","NAIM","NALI","NEKA","NEKO","NICA","NILA","NODA","NOEM","NOJA","OCEH","OGAH","OGAM","OGEL","OJEG","OJEK","OLAH","OLAK","OLEH","OLEK","OLIA","OMEL","ONAK","ONCE","OPAK","OPAL","OPEN","PACE","PADI","PAGI","PAIL","PALE","PALI","PECI","PEDA","PEGO","PEKA","PELO","PENA","PENI","PEOK","PIAH","PIAK","PIAL","PICA","PICO","PIKA","PIKE","PION","PLAN","PLOI","POAL","POCI","POIN","POLA","POMA","PONI"
   };
-char* Word[COLS][ROWS] =  //probably error with the char*
+char* keys[COLS][ROWS] =  //probably error with the char*
 {
   {"PERSEGI", "PERSEGI PANJANG", "LINGKARAN", "TRAPESIUM"},
   {"SEGITIGA", "SEGI ENAM", "SEGITIGA SAMAKAKI", "SEGI LIMA"},
@@ -134,7 +134,8 @@ Adafruit_NeoPixel pixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 int getKeyIndex(char key){// Function to get led index of the key in the keys array
   for(int r = 0; r < ROWS; r++){
     for(int c = 0; c < COLS; c++){
-      if(keys[c][r] == key) {
+      Serial.println(keys[c][r]);
+      if(keys[c][r] == char(key)) {
         return r * COLS + c; // Calculate the index
       }
     }
@@ -191,7 +192,7 @@ void upScreenLED(char input, char target, bool isCorrect){
   // P.setTextEffect(PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
   sprintf(t, "%s %c",input,  sign);
   P.displayText(t, PA_LEFT, 80, 1000, PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
-
+  
   while (!P.displayAnimate()) { /* do animation empty loop */ };
 
 
@@ -246,7 +247,7 @@ void simpleGame(char input) {
       #if BOARDTYPE != 3
       P.print(String(sequence));
       #else
-        P.displayText(String(sequence), PA_LEFT, 80, 1000, PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
+        P.displayText(sequence, PA_LEFT, 80, 1000, PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
       #endif
       if (ledIndex != -1) {
         setLED(ledIndex, 0, 0, 45); // Blue LED
@@ -322,7 +323,7 @@ void startCheck(){
   for(int i =  0; i < MAX_KEY; i ++){
     setLED(i, 0, 0, 45);
     // P.displayText(keys[i], PA_CENTER, 100, 1000, PA_NO_EFFECT, PA_NO_EFFECT);
-    P.print(keys[i]);
+    // P.print(keys[i]);
     delay(SHORTDELAY);
     P.print("");
   }
@@ -364,11 +365,13 @@ void setup() {
   simpleGame(NO_KEY);
 }
 
+
 void keypadRoutine() {
   if (kpd.getKeys()) {
-    static bool allPressed = true;
+    bool allPressed = true;
+
     // Check if all keys are pressed
-    for (int i = 0; i < MAX_KEY; i++) {
+    for (int i = 0; i < 16; i++) {
       if (kpd.key[i].kstate != PRESSED) {
         allPressed = false;
         break;
@@ -380,33 +383,33 @@ void keypadRoutine() {
 
     // Handle key state changes
     for (int i = 0; i < 26; i++) {
-      if (kpd.key[i].stateChanged && lastKey != kpd.key[i].kchar) {
-        char o = usePressed ? 'Y' : 'N';
-        // Serial.printf("index number is %d , usePressed = %c \n", i, o);
-        if ((usePressed && kpd.key[i].kstate == PRESSED)) {
+      if (kpd.key[i].stateChanged) {
+        if ((usePressed && kpd.key[i].kstate == PRESSED) || (!usePressed && kpd.key[i].kstate == RELEASED)) {
           position = getKeyIndex(kpd.key[i].kchar); // Get the index of the key
-          
+
           if (position != -1) {
-              // P.displayText(kpd.key[i].kchar, PA_CENTER, 80, 1000, PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
-              // P.print(kpd.key[i].kchar);
+            state[position] = !state[position]; // Toggle the state
+
+            if (state[position]) {
+              P.print(kpd.key[i].kchar);
               Serial.printf("Button %c at index %d is ON\n", kpd.key[i].kchar, position);
-              lastKey = kpd.key[i].kchar;
-              simpleGame(kpd.key[i].kchar); // Call the Simon Says game logic
-              // if(debug) setLED(getKeyIndex(kpd.key[i].kchar), 0, 0, 45);
-              // else simpleGame(kpd.key[i].kchar); // Call the Simon Says game logic
-            
+              // simonSaysGame(kpd.key[i].kchar); // Call the Simon Says game logic
+              // if(debug) setLED(getKeyIndex(kpd.key[i].kchar), 45, 0, 0);
+              // if(!debug) simonSaysGame(kpd.key[i].kchar); // Call the Simon Says game logic
+               simpleGame(kpd.key[i].kchar);
+
+            } 
           }
-        }else if((usePressed && kpd.key[i].kstate == RELEASED)){
+        }else if((usePressed && kpd.key[i].kstate == RELEASED) || (!usePressed && kpd.key[i].kstate == PRESSED)){
               setLED(position, 0, 0, 0); // Turn off the LED
+              state[position] = 0;
               P.print("");
               Serial.printf("Button %c at index %d is OFF\n", kpd.key[i].kchar, position);
             }
       }
     }
-    
   }
 }
-
 
 void loop() {
   keypadRoutine();
