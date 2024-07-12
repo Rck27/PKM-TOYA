@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 
-#define BOARDTYPE 3 // 1 for number, 2 for alphabet, 3 for shape puzzle
+#define BOARDTYPE 1 // 1 for number, 2 for alphabet, 3 for shape puzzle
 bool REV = 1; // rev 0 for  the non inverted led matrix, rev 1 for the  inverted one , will  alter the led setup below
 //pin 10 is used to alter the value, HIGH for 1
 bool debug = true;//////////////DEBUG FOR DISABLE THE GAME, ONLY  CHECKING THE BASIC FUNCTION OF THE BOARD
@@ -37,10 +37,10 @@ char keys[COLS][ROWS] = {
 
 
 #if BOARDTYPE == 1
-const char* indonesianWords[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
-const int availableLength = sizeof(availableChars);
+const char* indonesianWords[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+const int availableLength = sizeof(indonesianWords);
 // const char* indonesianWords[] = {"1", "2", "3"};
-char* Word[COLS][ROWS]= {
+const char* Word[COLS][ROWS]= {
   {"0", "1", "2", "3"},
   {"4", "5", "6", "7"},
   {"8", "9", "x", "-"},
@@ -113,7 +113,7 @@ MD_Parola P = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 
-const byte NUM_LEDS = 16;
+const byte NUM_LEDS = 27;
 const byte LED_PIN = 4;
 int position, winCount;
 unsigned long lastMillis, currentMillis;
@@ -247,13 +247,17 @@ void simonSaysGame(char input) {
       Serial.printf("Generated character %c for position %d\n", sequence[i], i);
       // Immediately display the sequence character on the LED
       int ledIndex = getKeyIndex(sequence[i]);
-      P.print(String(sequence));
+      if(BOARDTYPE != 3) P.print(String(sequence));
+      else {
+        P.displayText(Word[getKeyIndex(sequence[i]) / COLS][getKeyIndex(sequence[i]) % COLS], PA_CENTER, 80, 1000, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+      }
       if (ledIndex != -1) {
         setLED(ledIndex, 0, 0, 45); // Blue LED
         delay(SHORTDELAY); // Display each character for half a second
         setLED(ledIndex, 0, 0, 0); // Turn off the LED
         delay(SHORTDELAY); // Short pause between characters
       }
+      P.print("");
     }
     flashLED(0, 45, 0); // Flash green to indicate the game has started
     gameStarted = true;
