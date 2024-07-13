@@ -1,5 +1,5 @@
 #define BOARDTYPE 3 // 1 for number, 2 for alphabet, 3 for shape puzzle
-
+/////this one should be fine
 bool debug = true;//////////////DEBUG FOR DISABLE THE GAME, ONLY  CHECKING THE BASIC FUNCTION OF THE BOARD
 #include <Keypad.h>
 #include <Adafruit_NeoPixel.h>
