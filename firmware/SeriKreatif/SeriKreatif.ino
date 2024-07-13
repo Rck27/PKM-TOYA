@@ -124,7 +124,7 @@ const char keys[COLS][ROWS] = {
 int state[ROWS*COLS] = {0}; // Initialize all to 0
 
 ///ESP32 S2
-int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9 ,10, 11};
+int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9 ,10, 11, 15, 14, 13, 12};
 byte colPins[COLS] = {6, 2, 1, 9}; //connect to the column pinouts of the kpd
 byte rowPins[ROWS] = {11, 7, 5, 3}; //connect to the row pinouts of the kpd
 #define MODE_BUTTON_PIN 10

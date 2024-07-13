@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 
-#define BOARDTYPE 2 // 1 for number, 2 for alphabet, 3 for shape puzzle
+#define BOARDTYPE 1 // 1 for number, 2 for alphabet, 3 for shape puzzle
 bool REV = 1; // rev 0 for  the non inverted led matrix, rev 1 for the  inverted one , will  alter the led setup below
 //pin 10 is used to alter the value, HIGH for 1
 bool debug = false;//////////////DEBUG FOR DISABLE THE GAME, ONLY  CHECKING THE BASIC FUNCTION OF THE BOARD
@@ -33,14 +33,14 @@ byte colPins[COLS] = {6, 2, 1, 9, 38 ,39, 40}; //connect to the column pinouts o
 const char* indonesianWords[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
 const int availableLength = sizeof(indonesianWords);
 // const char* indonesianWords[] = {"1", "2", "3"};
-const char* keys[COLS][ROWS]= {
-  {"0", "1", "2", "3"},
-  {"4", "5", "6", "7"},
-  {"8", "9", "x", "-"},
-  {"n", "/", "+", "n"},
-  {"n", "n", "n", "n"},
-  {"n", "n", "n", "n"},
-  {"n", "n", "n", "n"},
+const char keys[COLS][ROWS]= {
+  {'0', '1', '2', '3'},
+  {'4', '5', '6', '7'},
+  {'8', '9', 'x', '-'},
+  {'n', '/', '+', 'n'},
+  {'n', 'n', 'n', 'n'},
+  {'n', 'n', 'n', 'n'},
+  {'n', 'n', 'n', 'n'},
 
 };
 
