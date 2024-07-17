@@ -1,13 +1,13 @@
 #include <Arduino.h>
 
 
-#define BOARDTYPE 1 // 1 for number, 2 for alphabet, 3 for shape puzzle
+#define BOARDTYPE 2 // 1 for number, 2 for alphabet, 3 for shape puzzle
 bool REV = 1; // rev 0 for  the non inverted led matrix, rev 1 for the  inverted one , will  alter the led setup below
 //pin 10 is used to alter the value, HIGH for 1
 bool debug = false;//////////////DEBUG FOR DISABLE THE GAME, ONLY  CHECKING THE BASIC FUNCTION OF THE BOARD
 //pin  12 is used to alter the value on boot, HIGH for true
-#define ROWS  4 //four rows
-#define  COLS  7 //four columnsv
+#define ROWS   7//four rows
+#define  COLS  4 //four columnsv
 
 
 
@@ -22,8 +22,12 @@ bool debug = false;//////////////DEBUG FOR DISABLE THE GAME, ONLY  CHECKING THE 
 
 //////////////////////another experiment
 //why didnt i just make the keys different for the different board? like board 1 keys would contain 123 etc
-int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9 ,10, 11,15, 14,  13, 12, 16, 17, 18, 19, 23, 22, 21, 20, 24, 25};
-byte colPins[COLS] = {6, 2, 1, 9, 38 ,39, 40}; //connect to the column pinouts of the kpd
+int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9 ,10, 11,15, 14,  13, 12, 16, 17, 18, 19, 23, 22, 21, 20, 24, 25, 24, 25};
+// byte rowPins[ROWS] = {6, 2, 1, 9, 38, 39, 40}; //connect to the column pinouts of the kpd
+// int snakeIndices[] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9, }
+byte rowPins[ROWS] = {11, 7, 5, 3, 12, 13, 10};
+
+byte colPins[COLS] = {6, 2, 1, 9}; //connect to the row pinouts of the kpd
 
 
 
@@ -49,14 +53,14 @@ const char keys[COLS][ROWS]= {
 const char* indonesianWords[] = {
 "ABDI","ABDU","ABEN","ABET","ABID","ABIS","ABOI","ABON","ABUH","ABUK","ABUL","ABUR","ABUS","ACIK","ACUH","ACUM","ADEH","ADEM","ADIB","ADIK","ADIL","ADON","ADUH","ADUK","ADUN","AFEK","AGEN","AGIH","AGIL","AGIO","AGON","AGUK","AGUL","AGUN","AGUS","AGUT","AHLI","AJEK","AJIR","AJRE","AJUK","AJUN","AJUR","AKEO","AKIL","AKLI","AKOR","AKSI","AKUN","AKUR","AKUT","ALEM","ALIF","ALIH","ALIK","ALIM","ALIN","ALIP","ALIR","ALIS","ALIT","ALKU","ALOI","ALON","ALOT","ALTO","ALUM","ALUN","ALUP","ALUR","AMBI","AMEN","AMIL","AMIN","AMIR","AMIS","AMIT","AMKO","AMOI","AMOR","AMPE","AMPO","AMPU","AMUH","AMUK","ANEH","ANIL","ANIS","ANJU","ANOM","ANTE","ANTI","ANUS","ANUT","APEK","APEL","APES","APIK","APIT","APOK","APUH","ARDI","AREK","AREN","ARES","ARIF","ARIH","ARIK","ARIL","ARIP","ARIS","ARIT","ARKU","ARON","ARTI","ARUK","ARUN","ARUS","ASET","ASID","ASIH","ASIL","ASIN","ASLI","ASOI","ASOR","ASRI","ASUH","ATOK","ATOL","ATOM","ATOP","ATOS","ATUR","ATUS","AUNG","AUTO","AVEN","AWET","AWIN","AWUR","AWUT","AYEM","AYID","AYIT","AYOM","AYUK","AYUM","AYUN","AYUT","BADE","BADI","BAGI","BAHU","BAID","BAIK","BAIN","BAIS","BAIT","BAJI","BAJU","BAKH","BAKI","BAKO","BAKU","BALU","BANG","BANI","BANK","BARI","BARU","BASI","BATI","BATU","BAUD","BAUK","BAUN","BAUR","BAUT","BAYI","BAYU","BEDA","BEDO","BEGA","BEGU","BEKA","BEKU","BELA","BELI","BELO","BELU","BEMO","BENA","BENI","BEOL","BERA","BERI","BERU","BESI","BETA","BETI","BIAH","BIAK","BIAR","BIAS","BIAT","BIAU","BICU","BIDA","BIDO","BIJA","BIKU","BILA","BINA","BIRO","BIRU","BISA","BISU","BIUS","BIUT","BLEK","BLOG","BLOK","BLUS","BODI","BOGA","BOGI","BOIS","BOKS","BOKU","BOLA","BOLU","BONG","BORA","BOTA","BOYA","BREM","BREN","BROM","BROS","BRUK","BUAH","BUAI","BUAK","BUAL","BUAR","BUAS","BUAT","BUDE","BUDI","BUIH","BUIL","BUKA","BULE","BUMI","BUNA","BUNG","BUNI","BURA","BUSA","BUSI","BUTA","BUYA","CABE","CABO","CAEM","CAGU","CAHI","CAIR","CAIS","CAKI","CAKO","CALO","CANG","CAOS","CAPE","CARI","CATU","CAUL","CAWI","CEKI","CEKU","CELA","CELI","CEMA","CENA","CENG","CEPO","CEPU","CERI","CETI","CIAK","CIAP","CIAR","CIKA","CIKU","CING","CITA","CIUM","CIUT","COAK","COBA","CUAI","CUAK","CUAL","CUAR","CUAT","CUEK","CUIK","CUIL","CUIT","CUKA","CUKI","CULA","CULI","CUMA","CUNG","CURA","CURI","CUTI","DAGE","DAGI","DAGU","DAHI","DAIF","DAIM","DAKI","DAKU","DALU","DAME","DAMI","DANG","DARI","DARO","DASI","DATI","DATU","DAUK","DAUN","DAUR","DAYU","DEBU","DEKU","DELU","DEMI","DEMO","DENA","DEPA","DEPO","DERA","DERU","DESA","DEWA","DEWI","DIAM","DIAN","DIAR","DIAS","DIAT","DIES","DIET","DILA","DINA","DITO","DOBI","DOKU","DONG","DONI","DOSA","DRAF","DRAI","DRAM","DRAT","DREL","DRIF","DRIL","DRIP","DROP","DRUM","DUAI","DUEL","DUET","DUGA","DUHA","DUHE","DUIT","DUKA","DULA","DULI","DUMI","DUNG","DUPA","DURA","DURI","DUTA","DZAL","EBAM","EBAN","EBRO","EDAN","EDAR","EDIT","EGAH","EGAT","EGOL","EGOS","EJAN","EKAD","EKON","EKOR","ELAK","ELAN","ELOK","ELON","ELUS","EMAS","EMAT","EMIR","EMIS","EMOH","EMOL","EMPO","EMPU","EMUT","ENAK","ENAM","ENAP","ENAS","ENAU","ENOM","EPAK","EPIK","EPOK","EPOS","ERAK","ERAM","ERAT","ERIK","EROT","ERTI","ESAI","ESAK","ESOK","ESOT","ETIK","ETIL","ETIS","ETOS","ETSA","FAIL","FAKS","FANI","FASE","FEKO","FERI","FIAT","FILM","FILO","FIRN","FLAT","FLIS","FLOP","FOLI","FOYA","FRIB","FRON","FUAD","FULI","FUSI","GACO","GADO","GAEK","GAET","GAIB","GAIL","GAIN","GAIT","GAJI","GALI","GANI","GAOK","GARI","GARU","GAUK","GAUL","GAUN","GAUT","GEBU","GEDI","GELA","GELI","GELO","GEMA","GEMI","GENA","GERA","GERO","GERU","GESA","GETA","GETU","GIAL","GIAM","GIAT","GILA","GIPS","GIRO","GITA","GIUK","GIUR","GOAK","GOBA","GODA","GOEL","GOLF","GONI","GORI","GRAD","GRAF","GRAM","GRES","GRIA","GRIP","GROS","GRUP","GUAL","GUAM","GUAR","GUCI","GUDE","GUDI","GUIT","GULA","GULI","GUMA","GUNA","GURI","GUSI","HAID","HAIK","HAIL","HAJI","HALO","HANG","HARI","HART","HARU","HATI","HAUD","HAUL","HAUR","HAUS","HAYO","HELA","HELM","HENG","HERO","HIAS","HIDU","HIFA","HINA","HOBI","HOKI","HOLI","HORE","HUDA","HUJI","HUMA","HUNI","IBAN","IBNU","IBRA","IBUL","IBUN","IBUS","IDAH","IDAM","IDAP","IDAS","IDEM","IDEP","IFAH","IGAL","IGAU","IGLO","IJAB","IJAS","IJON","IJUK","IKAB","IKAL","IKAN","IKAT","IKON","IKUH","IKUT","ILAH","ILAK","ILAR","ILAS","ILAT","ILER","ILES","ILMU","IMAK","IMAN","IMLA","IMUN","INAP","INAS","INCA","INCU","INDU","INFO","INGA","IOTA","IPAR","IPON","IPUH","IPUK","IQRA","IRAM","IRAS","IRUS","ISAK","ISAP","ISRA","ISYA","ISYU","ITEM","IWAD","IZAH","JADI","JAGO","JAHE","JAIL","JAIS","JAIZ","JALI","JALU","JAMU","JANI","JAPU","JARI","JARO","JATI","JAUH","JAWI","JEDA","JELA","JELI","JELU","JEMU","JENG","JENU","JEPA","JERA","JERI","JERO","JIKA","JILA","JITU","JIWA","JOKI","JOLI","JORI","JOTA","JUAK","JUAL","JUAN","JUAR","JUDI","JUDO","JUEK","JUGA","JUHI","JUIH","JULI","JULO","JUNG","JUNI","JURA","JURI","JUTA","JUTE","KACI","KACO","KACU","KADE","KADI","KADO","KAFE","KAFI","KAIL","KAIN","KAIS","KAIT","KAJI","KALI","KALO","KAMI","KAMP","KAMU","KANE","KANG","KANO","KANS","KAON","KAOS","KAPI","KAPU","KARI","KARU","KASI","KATE","KATI","KAUL","KAUM","KAUS","KAUT","KAWI","KAYU","KEBO","KECI","KECU","KEDI","KEJI","KEJU","KELI","KELP","KELU","KEMI","KEMU","KENA","KENG","KERA","KERI","KERO","KERS","KESI","KETA","KETI","KETU","KHAS","KHAT","KIAH","KIAL","KIAM","KIAN","KIAP","KIAR","KIAS","KIAT","KICU","KILA","KILN","KILO","KIMA","KIMO","KINA","KIOS","KIPA","KIPU","KIRA","KIRU","KISA","KITA","KITS","KLAN","KLEM","KLEN","KLEP","KLIN","KLIP","KLIR","KLON","KLOP","KLOR","KLUB","KNOP","KNOT","KOAR","KOCI","KODA","KODE","KODI","KOIL","KOIN","KOIT","KOJA","KOLA","KOLI","KOLT","KOMA","KOPI","KOTA","KRAI","KRAM","KREM","KRIM","KRIO","KROL","KROM","KUAH","KUAI","KUAP","KUAR","KUAS","KUAT","KUDA","KUDI","KUIH","KUIL","KUIN","KUIR","KUIS","KUIT","KULI","KULT","KUNG","KUNO","KUPA","KUPE","KUPI","KURA","KURS","KUSA","KUTA","KUTI","KUYA","LABU","LACI","LADI","LADU","LAGI","LAGO","LAGU","LAIF","LAIK","LAIN","LAIS","LAJU","LAKI","LAKU","LANG","LAOS","LAPO","LARI","LARS","LARU","LASI","LASO","LAUH","LAUK","LAUN","LAUR","LAUT","LAWE","LAWI","LAYU","LEAK","LECI","LECO","LEFA","LEGA","LEGI","LEGO","LEGU","LEJA","LEKA","LEKU","LEMA","LEMO","LENA","LENG","LENS","LEOT","LEPA","LEPU","LESA","LESI","LESU","LETA","LEWA","LEWU","LIAN","LIAR","LIAS","LIAT","LIAU","LIFO","LIFT","LIGA","LIKU","LIMA","LING","LINU","LIPU","LIRA","LISU","LIUK","LIUR","LIUT","LIWA","LOAK","LOBA","LOBI","LOHA","LOJI","LOKA","LOKI","LONG","LORI","LOSE","LOTA","LOYA","LUAH","LUAK","LUAP","LUAR","LUAS","LUAT","LUES","LUIH","LUIK","LUKA","LUKS","LUNG","LUPA","LUPI","LUSA","LUTI","MACE","MADI","MADO","MADU","MAGI","MAIN","MAIR","MAJU","MAKI","MALE","MALT","MALU","MANG","MANI","MARE","MARI","MARK","MARO","MARS","MARU","MATE","MATI","MATU","MAUT","MAUZ","MAZI","MBAH","MBAK","MBOK","MEDU","MEGA","MEJA","MEKO","MENA","MENI","MENS","MENU","MERI","MERU","MESA","META","MIAK","MIAP","MIJU","MIKA","MILU","MINA","MIOP","MISA","MITE","MODE","MOGA","MOKA","MOKE","MOLA","MOLE","MONG","MORF","MORI","MOSI","MOTA","MUAI","MUAK","MUAL","MUAS","MUAT","MUDA","MUIH","MUKA","MULA","MUNG","MUNO","MUON","MURA","MURI","MUTE","NABI","NABU","NADI","NAFI","NAHI","NAHU","NAIB","NAIF","NAIK","NAIM","NALI","NASI","NAZI","NEKA","NEKO","NESA","NETO","NIAT","NICA","NILA","NIRA","NODA","NOEM","NOJA","NOTA","NOVA","NURI","NUSA","NYAI","NYAK","NYIT","NYUT","OASE","OBAR","OBAT","OCEH","OGAH","OGAM","OGEL","OJEG","OJEK","OKER","OLAH","OLAK","OLEH","OLEK","OLES","OLET","OLIA","OMEL","OMPU","ONAK","ONAR","ONCE","OPAK","OPAL","OPAS","OPEN","OPER","OPSI","OPUS","ORAK","ORAL","ORDE","ORDI","OREN","ORET","OTAK","OTAR","OTEK","OVAL","OVEN","OVER","OVUM","OYAK","OYEK","PACE","PACU","PADI","PADU","PAES","PAGI","PAGU","PAIL","PAIR","PAIS","PAKU","PALE","PALI","PALU","PARE","PARI","PARO","PARS","PARU","PASI","PASU","PATI","PAUH","PAUK","PAUL","PAUN","PAUS","PAUT","PAYU","PECI","PEDA","PEGO","PEKA","PEKU","PELO","PELS","PENA","PENI","PEOK","PEOT","PERA","PERI","PERS","PESA","PESI","PETA","PETI","PIAH","PIAK","PIAL","PIAS","PIAT","PICA","PICO","PICU","PIKA","PIKE","PILU","PION","PITA","PIUH","PIUT","PIZA","PLAN","PLOI","PLOT","PLUG","PLUS","POAL","POCI","POIN","POLA","POMA","PONI","PONS","PORA","PORI","POSE","PRAH","PREI","PRES","PRIA","PRIS","PRIT","PROF","PUAH","PUAK","PUAL","PUAN","PUAS","PUDI","PUIH","PUJA","PUJI","PUKI","PULA","PUMA","PUNG","PUNK","PURA","PURE","PURI","PUSA","PUSO","PUTI","QARI","RABI","RABU","RADI","RADU","RAFE","RAFI","RAGI","RAGU","RAHU","RAIB","RAIH","RAIS","RAMI","RAMU","RANG","RANI","RAPI","RAPU","RASE","RASI","RATU","RAUM","RAUN","RAUP","RAUT","RAWI","RAYU","REAK","REAL","REBA","REBU","RECA","REDA","REGI","REGU","REJA","REKA","RELA","RELI","REMA","REMI","RENA","RENG","REOG","REOL","REOT","RESA","RESI","RESU","RETA","RIAH","RIAK","RIAL","RIAM","RIAN","RIAP","RIAS","RIBA","RIBU","RICA","RIDA","RIDU","RIMA","RIME","RING","RIOL","RISA","RIUH","RIUK","RODA","RODI","ROGA","ROKI","ROMA","RONA","RONG","ROTI","ROWA","RUAH","RUAI","RUAK","RUAM","RUAP","RUAS","RUAT","RUDI","RUGI","RUIT","RUJI","RUKO","RUMI","RUOK","RUPA","RUSA","RUTE","SABI","SABO","SADO","SADU","SAFI","SAGU","SAHI","SAIF","SAIR","SAJI","SAKE","SAKI","SAKU","SALE","SALI","SAMI","SANG","SANI","SANO","SAPI","SAPU","SARI","SARU","SATE","SATO","SATU","SAUH","SAUK","SAUM","SAUR","SAUT","SAWI","SAWO","SAYU","SEBA","SEBU","SEDU","SEGA","SEGI","SEIA","SEIN","SEKA","SEKH","SEKO","SELA","SELO","SEMA","SEMI","SEMU","SENA","SENG","SENI","SENU","SEOK","SEPI","SERA","SERI","SERO","SERU","SETA","SETI","SETU","SEWA","SEWU","SIAH","SIAK","SIAL","SIAM","SIAN","SIAP","SIAR","SIAT","SIAU","SICE","SIDA","SIKA","SIKU","SILA","SILO","SILT","SILU","SING","SINU","SIPU","SIRA","SIRU","SITA","SITU","SIUH","SIUK","SIUL","SIUR","SIUT","SKIP","SKOP","SKOR","SLAH","SLIP","SLOF","SNOB","SOAK","SOAL","SOBA","SODA","SOFA","SOGA","SOJA","SOKA","SOMA","SOPI","SORE","SORI","SOUN","SPAN","SPIL","SREG","STAF","STAN","STEK","STEN","STEP","STIK","STOK","STOL","STOP","SUAH","SUAI","SUAK","SUAM","SUAP","SUAR","SUAT","SUCI","SUDA","SUDI","SUFI","SUGI","SUIT","SUJI","SUKA","SUKE","SUKI","SULA","SULI","SUMO","SUNI","SUPA","SURA","SURI","SWAK","SYAH","SYAK","SYAL","SYAM","SYAR","SYIN","SYOK","SYUR","TABE","TABO","TABU","TACI","TADI","TAGO","TAHI","TAHU","TAIB","TAIS","TAJI","TAJU","TAKI","TALI","TALK","TALU","TAMU","TANG","TANI","TANK","TAPI","TARI","TAUL","TAUN","TAUR","TEAN","TEBU","TEGA","TEJA","TEJI","TEKA","TEKI","TEKO","TEKS","TELA","TEMA","TEMU","TENG","TEPA","TEPI","TEPO","TEPU","TERA","TERI","TERM","TEZI","TIAM","TIAN","TIAP","TIBA","TIFA","TIGA","TIKA","TIKE","TING","TIPE","TIPU","TIRU","TISU","TIUP","TOAS","TOGA","TOGE","TOKE","TONA","TONG","TOPI","TOYA","TRAP","TRAS","TREK","TREM","TREN","TRES","TRIK","TRIL","TRIM","TRIO","TRIP","TROI","TROS","TRUF","TRUK","TSAR","TUAH","TUAI","TUAK","TUAL","TUAM","TUAN","TUAP","TUAR","TUAS","TUBA","TUBE","TUBI","TUFA","TUGI","TUIL","TUJI","TULA","TULE","TUMA","TUNA","TUNG","TURA","TURI","UANG","UBAH","UBAN","UBAR","UBAT","UBEK","UBEL","UBER","UBET","UBIN","UBIT","UCAP","UCEK","UCIS","UDAK","UDAM","UDAP","UDAR","UDEK","UDET","UDIK","UDIM","UFTI","UGEM","UGER","UJAR","UKAS","UKIR","ULAH","ULAK","ULAM","ULAN","ULAR","ULAS","ULAT","ULEK","ULEM","ULEN","ULES","ULET","ULIK","ULIN","ULIR","ULIT","ULNA","ULOS","UMAK","UMAN","UMAT","UMBI","UMBO","UNAM","UNDA","UNDI","UNIK","UNIT","UNTA","UNTI","UPAH","UPAK","UPAM","UPAN","UPAR","UPAS","UPET","UPIH","UPIK","UPIL","URAH","URAI","URAK","URAP","URAS","URAT","UREA","URIK","URIP","URIS","URIT","URNA","USAH","USAI","USAK","USAM","USAP","USAR","USAT","USIA","USIK","USIL","USIR","UTAS","UTIH","UTIK","UWAR","VENA","VETO","VIDE","VILA","VIOL","VISA","VLEK","VOAL","VOLI","VOLT","VRAH","WADI","WAGE","WAGU","WAID","WALI","WALS","WANG","WANI","WARI","WARU","WASI","WATU","WEDA","WESI","WIKU","WING","WIRA","WIRU","WISA","WONG","WOSI","YAIS","YANG","YARD","YAUM""YOGA","YOGI","YOLK","YUDA","YUDO","YUPA","YURA","YUTE","ZAIM","ZAIR","ZEBU","ZENI","ZERO","ZETA","ZINA","ZINK","ZION","ZONA","ZONE"
 };// dont forget to add the different Word for the different board type
-const char keys[COLS][ROWS] = {
+const char keys[ROWS][COLS] = {
   {'A', 'B', 'C', 'D'},
   {'E', 'F', 'G', 'H'},
   {'I', 'J', 'K', 'L'},
   {'M', 'N', 'O', 'P'},
   {'Q', 'R', 'S', 'T'},
   {'U', 'V', 'W', 'X'},
-  {'n', 'Y', 'Z', 'n'},
+  {'m', 'Y', 'Z', 'n'},
 };
 
 
@@ -84,7 +88,6 @@ char* keys[COLS][ROWS] =  //probably error with the char*
 #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
 #define MAX_DEVICES 4
 #define DEBUG_PIN 12
-#define REV_PIN 10
 #define SHORTDELAY 500
 #define LONGDELAY 1000
 #define MAX_WORDS  100
@@ -102,9 +105,8 @@ char* keys[COLS][ROWS] =  //probably error with the char*
 
 
 
-byte rowPins[ROWS] = {11, 7, 5, 3}; //connect to the row pinouts of the kpd
 MD_Parola P = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
-Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+Keypad kpd = Keypad( makeKeymap(keys), rowPins,colPins, ROWS, COLS );
 
 
 const byte LED_PIN = 4;
@@ -130,17 +132,17 @@ Adafruit_NeoPixel pixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 /////
 
-
-int getKeyIndex(char key){// Function to get led index of the key in the keys array
-  for(int r = 0; r < ROWS; r++){
-    for(int c = 0; c < COLS; c++){
-      Serial.println(keys[c][r]);
-      if(keys[c][r] == char(key)) {
-        return r * COLS + c; // Calculate the index
-      }
+int getKeyIndex(char key) { // Function to get led index of the key in the keys array
+if(key == 'Y') return 24;
+if(key == 'Z') return 25;
+    for(int r = 0; r < ROWS; r++) {
+        for(int c = 0; c < COLS; c++) {
+            if(keys[r][c] == key) {
+                return r * COLS + c; // Calculate the index
+            }
+        }
     }
-  }
-  return -1; // Return -1 if the key is not found
+    return -1; // Return -1 if the key is not found
 }
 
 void setLED(int index, int r, int g, int b) {
@@ -190,9 +192,9 @@ void upScreenLED(char input, char target, bool isCorrect){
   char sign = isCorrect ? '^' : '*';
   Serial.printf("%s your input is %c\n",text, input);
   // P.setTextEffect(PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
-  sprintf(t, "%s %c",input,  sign);
+  sprintf(t, "%c %c",input,  sign);
+
   P.displayText(t, PA_LEFT, 80, 1000, PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
-  
   while (!P.displayAnimate()) { /* do animation empty loop */ };
 
 
@@ -203,6 +205,8 @@ void upScreenLED(char input, char target, bool isCorrect){
     setLED(getKeyIndex(input), 45, 0, 0);
     setLED(getKeyIndex(target), 0, 45, 0);
     }
+  delay(200);
+  setLED(getKeyIndex(input), 0, 0, 0);
 }
 void simpleGame(char input) {
   static bool changed = true;
@@ -233,7 +237,7 @@ void simpleGame(char input) {
     
     #elif BOARDTYPE != 1
     randomIndex = random(0, MAX_WORDS);
-    Serial.println(randomIndex);
+    // Serial.println(randomIndex);
     #endif
 
     for (int i = 0; i <  WORD_LENGTH ; i++) { //to generate a random sequence
@@ -323,7 +327,8 @@ void startCheck(){
   for(int i =  0; i < MAX_KEY; i ++){
     setLED(i, 0, 0, 45);
     // P.displayText(keys[i], PA_CENTER, 100, 1000, PA_NO_EFFECT, PA_NO_EFFECT);
-    // P.print(keys[i]);
+    P.print(keys[i]);
+    Serial.println(keys[i]);
     delay(SHORTDELAY);
     P.print("");
   }
@@ -338,6 +343,7 @@ void setup() {
   Serial.begin(115200);
   pinMode(LED_PIN, OUTPUT);
   pinMode(DEBUG_PIN, INPUT);
+//  pinMode(40, INPUT_PULLUP);
   pixel.begin();
   pixel.clear();  pixel.show();
   debug = !digitalRead(DEBUG_PIN) ? 1 : 0;
@@ -360,57 +366,99 @@ void setup() {
   // P.print("TES");
   P.displayText("FUNTOYA", PA_LEFT, 100, 1000, PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
   while (!P.displayAnimate()) { /* do animation empty loop */ };
-  P.print("");
-  if(debug) startCheck();
+  // P.print("");
+  // if(debug) startCheck();
+  // for(int x = 0; x<COLS*ROWS; x++){
+  //           setLED(x, 0, 50, 0);
+  //           Serial.printf("index ke %d \n", x);
+  //           delay(200);
+  //       }
+  //              for(int x = 0; x<COLS*ROWS; x++){
+  //           setLED(x, 0, 0, 0);
+  //           Serial.printf("index ke %d \n", x);
+  //           delay(100);
+  //       }
+
+        for(int x = 0; x < ROWS; x++){
+            for(int y = 0; y < COLS; y++){
+                int index = getKeyIndex(keys[x][y]);
+                Serial.printf("%d %d %c index-%d\n", x, y, keys[x][y], index);
+                setLED(index, 64, 44, 11);
+
+                delay(100);
+            }
+        }
+        for(int x = 0; x < ROWS; x++){
+            for(int y = 0; y < COLS; y++){
+                int index = getKeyIndex(keys[x][y]);
+                Serial.printf("%d %d %c index-%d\n", x, y, keys[x][y], index);
+                setLED(index, 0,0, 0);
+                delay(50);
+            }
+        }
   simpleGame(NO_KEY);
 }
 
 
-void keypadRoutine() {
-  if (kpd.getKeys()) {
-    bool allPressed = true;
-
-    // Check if all keys are pressed
-    for (int i = 0; i < 16; i++) {
-      if (kpd.key[i].kstate != PRESSED) {
-        allPressed = false;
-        break;
-      }
-    }
-
-    // Determine if we should use PRESSED or RELEASED state based on allPressed
-    bool usePressed = !allPressed;
-
-    // Handle key state changes
-    for (int i = 0; i < 26; i++) {
-      if (kpd.key[i].stateChanged) {
-        if ((usePressed && kpd.key[i].kstate == PRESSED) || (!usePressed && kpd.key[i].kstate == RELEASED)) {
-          position = getKeyIndex(kpd.key[i].kchar); // Get the index of the key
-
-          if (position != -1) {
-            state[position] = !state[position]; // Toggle the state
-
-            if (state[position]) {
-              P.print(kpd.key[i].kchar);
-              Serial.printf("Button %c at index %d is ON\n", kpd.key[i].kchar, position);
-              // simonSaysGame(kpd.key[i].kchar); // Call the Simon Says game logic
-              // if(debug) setLED(getKeyIndex(kpd.key[i].kchar), 45, 0, 0);
-              // if(!debug) simonSaysGame(kpd.key[i].kchar); // Call the Simon Says game logic
-               simpleGame(kpd.key[i].kchar);
-
-            } 
-          }
-        }else if((usePressed && kpd.key[i].kstate == RELEASED) || (!usePressed && kpd.key[i].kstate == PRESSED)){
-              setLED(position, 0, 0, 0); // Turn off the LED
-              state[position] = 0;
-              P.print("");
-              Serial.printf("Button %c at index %d is OFF\n", kpd.key[i].kchar, position);
-            }
-      }
-    }
-  }
-}
 
 void loop() {
-  keypadRoutine();
+    static char lastTriggered;
+    if (kpd.getKeys()) {
+        bool allKeysPressed = true;
+        bool taskExecuted = false;
+        int counter = 0;
+        for (int i = 0; i < LIST_MAX; i++) {
+            if (kpd.key[i].kstate == PRESSED) {
+                counter += 1;
+                // Serial.print(kpd.key[i].kchar);
+                setLED(getKeyIndex(kpd.key[i].kchar), 0, 0, 50); // Turn LED blue for button pressed
+            }
+        }
+        // Serial.println("");
+        allKeysPressed = counter >= (4 * 4) / 2 - 1 ? true : false;
+
+        for (int i = 0; i < LIST_MAX; i++) { // Scan the whole key list
+            taskExecuted = false;
+            if (kpd.key[i].stateChanged) { // Only find keys that have changed state
+                if (kpd.key[i].kstate == PRESSED && !taskExecuted) {
+                    if (!taskExecuted && !allKeysPressed) {
+                        if (kpd.key[i].kchar != lastTriggered) {
+                            Serial.printf(" %c is trig pressed \n", kpd.key[i].kchar);
+                            // for(int x = 0; x < ROWS; x++){
+                            //   for(int y = 0; y < COLS; y++){
+                            //     if(keys[x][y] == kpd.key[i].kchar) Serial.printf(" index %d %d is %c %c \n", x, y, keys[x][y], kpd.key[i].kchar);
+                            //     }}
+                            simpleGame(kpd.key[i].kchar);
+                            taskExecuted = true;
+                            lastTriggered = kpd.key[i].kchar;
+                        } else {
+                            Serial.printf(" %c is trig pressed before \n", kpd.key[i].kchar);
+                            // setLED(getKeyIndex(kpd.key[i].kchar), 0, 0, 30);
+                        }
+                    }
+                }
+                if (kpd.key[i].kstate == RELEASED && !taskExecuted) {
+                    if (!taskExecuted && allKeysPressed) {
+                        if (kpd.key[i].kchar != lastTriggered) {
+                            Serial.printf(" %c is trig released \n", kpd.key[i].kchar);
+                            simpleGame(kpd.key[i].kchar);
+                            // for(int x = 0; x < ROWS; x++){
+                            //   for(int y = 0; y < COLS; y++){
+                            //     if(keys[x][y] == kpd.key[i].kchar) Serial.printf(" index %d %d is %c %c \n", x, y, keys[x][y], kpd.key[i].kchar);
+                            //     }}
+                            taskExecuted = true;
+                            lastTriggered = kpd.key[i].kchar;
+                        } else {
+                            Serial.printf(" %c is trig released before \n", kpd.key[i].kchar);
+                            // setLED(getKeyIndex(kpd.key[i].kchar), 0, 0, 30);
+
+                        }
+                    }
+                }
+                // Serial.print("Key ");
+                // Serial.print(kpd.key[i].kchar);
+                // Serial.print(allKeysPressed ? " ALL " : " NOT ALL ");
+            }
+        }
+    }
 }
